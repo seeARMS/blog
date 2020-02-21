@@ -1,7 +1,7 @@
 baseURL = "https://blog.colinarms.com"
 languageCode = "en-us"
 title = "Colin Armstrong"
-copyright = "&copy; Copyright notice"
+copyright = "&copy; Copyright 2020"
 
 custom_css = "/static/css/custom.css"
 
@@ -26,37 +26,6 @@ custom_css = "/static/css/custom.css"
   logo = "/path/to/logo"
   favicon = "/path/to/favicon"
 
-[[menu.main]]
-    name = "Blog"
-    url = "/"
-    weight = 1
-
-[[menu.main]]
-    name = "About"
-    url = "/about"
-    weight = 2
-
-[[menu.main]]
-    identifier = "theme"
-    name = "/theme"
-    weight = 3
-
-[[menu.main]]
-    parent = "theme"
-    name = "creating-a-new-theme"
-    url = "/posts/creating-a-new-theme"
-    weight = 1
-
-[[menu.main]]
-    parent = "theme"
-    name = "migrate-from-jekyll"
-    url = "/posts/migrate-from-jekyll"
-    weight = 2
-
-[[menu.main]]
-    name = "Tags"
-    url = "/tags"
-    weight = 4
 
 [related]
   # Only include matches with rank >= threshold. This is a normalized rank between 0 and 100.
