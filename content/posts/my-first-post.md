@@ -12,7 +12,7 @@ tags:
 ---
 ![huginn](/uploads/huginn-muninn-jan-12-sm.jpg "Huginn")
 
-!\[Example image\](/huginn-muninn-jan-12-sm.png)
+!\[Example image\](/huginn-muninn-jan-12-sm.jpg)
 
 Hello world and welcome to my first post
 
