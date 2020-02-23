@@ -1,4 +1,4 @@
-baseURL = "blog.colinarms.com/"
+baseURL = "https://blog.colinarms.com/"
 languageCode = "en-us"
 title = "Colin Armstrong"
 copyright = "&copy; Copyright 2020"
