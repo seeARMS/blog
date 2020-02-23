@@ -17,13 +17,13 @@ For example, if there's a sudden spike in discussion on Twitter with the terms "
 
 Huginn seemed to be a pretty powerful automation tool, but I wanted to take this a step further and introduce some organization - I wanted all notifications to be cataloged & delivered in a centralized way. A personal Slack workspace seemed like the perfect solution for this - I can have a `#flights` channel for flight deals, or a `#trending` channel for the, er, pending San Francisco emergencies.
 
-Another hard requirement I had was that I wanted all of this to be free. Huginn is self-hosted, and I quickly realized had pretty lax runtime resource requirements, so a GCP micro tier instance (1 instance free per month) was perfect for this.
+Another hard requirement I had was that I wanted all of this to be free. Huginn is self-hosted, and has pretty lax runtime resource requirements (even able to run on a [Raspberry Pi](https://github.com/huginn/huginn/wiki/Running-Huginn-on-minimal-systems-with-low-RAM-&-CPU-e.g.-Raspberry-Pi)), so a GCP micro tier instance (1 instance free per month) was perfect for this.
 
 ## Getting Started
 
 The easiest way to [install Huginn](https://github.com/huginn/huginn/blob/master/doc/docker/install.md "Huginn installation") is via Docker. Luckily, Google Compute Engine supports deploying Docker containers natively on a lean [container-optimized OS](https://cloud.google.com/container-optimized-os/docs "Container optimized GCP OS").
 
-f1-micro instances have 614MB of memory. This is not enough to run Huginn out of the box - doing so will cause Docker to encounter `Error Code 137` [(out of memory)](https://success.docker.com/article/what-causes-a-container-to-exit-with-code-137) errors. To solve this, we need to create a swap file.
+f1-micro instances have 614MB of memory. This is not enough to run Huginn out of the box - doing so will cause Docker to encounter `Error Code 137` [(out of memory)](https://success.docker.com/article/what-causes-a-container-to-exit-with-code-137) errors. To solve this, we need to create a swap file in the VM.
 
 Head over to GCP, create a new project, and create a new instance.
 
@@ -31,84 +31,18 @@ On the instance creation page, use the following settings:
 
 * `f1-micro` machine type (1 free per month)
 * Check 'Deploy a container image to this VM instance'
-* Container image URL is \`docker.io/huginn/huginn\`
+* Container image URL is `docker.io/huginn/huginn`
 
-Under **Custom Metadata**, create the following key value pair:
 
-Key: startup-script 
+Disk-based swap is [disabled](https://stackoverflow.com/questions/58210222/how-to-enable-swap-swapfile-on-google-container-optimized-os-on-gce) by default in container-optimized OS. To enable and set the swap file every time the VM is booted, we can use add a custom startup script:
 
 ```
-
-\#! /bin/bash
-
+#! /bin/bash
 sysctl vm.disk_based_swap=1
-
 fallocate -l 2G /var/swapfile
-
 chmod 600 /var/swapfile
-
 mkswap /var/swapfile
-
 swapon /var/swapfile
-
 ```
 
-and use an machine type. 
-
-This is python code:
-
-    from random import randint
-    from faker import Fake
-    randint(1, 2)
-    
-    destFile = "largedataset-" + timestart + ".txt"
-    file_object = open(destFile,"a")
-    file_object.write("uuid" + "," + "username" + "," + "name" + "," + "country" + "\n")
-    
-    def create_names(fake):
-        for x in range(numberRuns):
-            genUname = fake.slug()
-            genName =  fake.first_name()
-            genCountry = fake.country()
-    file_object.write(genUname + "," + genName + "," + genCountry + "\n")
-    ..
-
-This is bash code:
-
-\#!/usr/bin/env bash
-var=""
-echo "Hello, ${var}"
-
-## Tweets
-
-This is one of my tweets, see [configuration](https://gohugo.io/content-management/shortcodes/#highlight) for more shortcodes:
-
-## Tables
-
-This is a table:
-
-| id | name | surname | age | city |
-| --- | --- | --- | --- | --- |
-| 20-1232091 | ruan | bekker | 32 | cape town |
-| 20-2531020 | stefan | bester | 32 | kroonstad |
-| 20-4835056 | michael | le roux | 35 | port elizabeth |
-
-## Lists
-
-This is a list:
-
-* one
-* two
-* [three](https://example.com)
-
-This is another list:
-
-1. one
-2. two
-3. [three](https://example.com)
-
-## Images
-
-This is an embedded photo:
-
-![](https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500)
+After creating the VM
