@@ -35,7 +35,7 @@ Under **Custom Metadata**, create the following key value pair:
 
 Key: startup-script 
 
-\`\`\`
+```
 
 \#! /bin/bash
 
@@ -49,7 +49,7 @@ mkswap /var/swapfile
 
 swapon /var/swapfile
 
-\`\`\`
+```
 
 and use an machine type. 
 
