@@ -11,23 +11,13 @@ tags:
 ---
 ![](/uploads/ok.jpg)
 
-I'm a huge fan of productivity tools, especially when they allow me to automate certain things or organize things better. I was delighted to come across a recent  [thread on Hacker News](https://news.ycombinator.com/item?id=21772610 "Huginn") discussing a supercharged automation tool: [Huginn](https://github.com/huginn/huginn "Huginn"). This open-source software performs automated tasks by watching for 'events', and triggering 'actions' based on these events. For example, if there's a sudden spike in tweets with the terms "San Francisco Earthquake", Huginn can send a text message to my phone.
+I'm a huge fan of productivity tools, especially when they allow me to automate certain things or organize things better. I was delighted to come across a recent  [thread on Hacker News](https://news.ycombinator.com/item?id=21772610 "Huginn") discussing a supercharged automation tool: [Huginn](https://github.com/huginn/huginn "Huginn"). This open-source software performs automated tasks by watching for 'events', and triggering 'actions' based on these events. 
 
-Huginn seemed to 
+For example, if there's a sudden spike in discussion on Twitter with the terms "San Francisco Earthquake", Huginn can send a text to my phone. Or, if a phenomenal flight deal is posted on one of the many deal-finding websites out there, Huginn can send me an email with the price and a link to Google Flights to buy. 
 
-Huginn has the following features:
+Huginn seemed to be a pretty powerful automation tool, but I wanted to take this a step further and introduce some organization - I wanted all notifications to be delivered in a centralized way. A personal Slack workspace seemed like the perfect solution for this - I can have a `#flights` channel for flight deals, or a `#trending` channel for the, er, pending San Francisco emergencies.
 
-* Open-source & self-hosted
-* Extensible: able to connect with many different websites & apps
-* 
-
-Before beginning the installation, I had an end goal in mind: I wanted to create a personal Slack workspace that let me 
-
-## 
-
-This is a new beginning on my blog on hugo and this seems pretty cool so im adding random text here because I dont know **what** to add here. So im adding a lot more random text here.
-
-This is another test.
+Another hard requirement I had was that I wanted all of this to be free. Huginn is self-hosted, and I quickly realized had pretty lax runtime resource requirements, so a GCP micro tier instance (1 instance free per month) was perfect for this.
 
 ## Code
 
