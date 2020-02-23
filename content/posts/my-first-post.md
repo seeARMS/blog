@@ -1,19 +1,21 @@
 ---
-title: 'Next-level automation with Huginn: Self-hosted & free on GCP'
+title: 'Next-level automation with Huginn: Self-hosted & free'
 date: 2020-02-21T03:39:52.000+00:00
 categories:
 - tech
 - automation
 tags:
 - automation
+- tech
 
 ---
 ![](/uploads/ok.jpg)
 
+I've always enjoyed automating as much as I can. I use Home Assistant to automate my smarthome devices.  
+
 I recently came across a [thread on Hacker News](https://news.ycombinator.com/item?id=21772610 "Huginn") discussing a supercharged version of IFTTT: Huginn. This open-source software performs automated tasks by watching for 'events', and triggering 'actions' based on these events. Huginn has the following benefits;
 
-* Open-source & self-hosted: no concerns of storing secrets. Your data is your data
-* Extensible: 
+* Open-source & self-hosted: no concerns
 
 ## New Beginning
 
