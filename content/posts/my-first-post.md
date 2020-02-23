@@ -1,5 +1,5 @@
 ---
-title: 'Next-level automation with Huginn: Self-hosted & free'
+title: 'Next-level automation with Huginn: Self-hosted & free using GCP'
 date: 2020-02-21T03:39:52.000+00:00
 categories:
 - tech
@@ -15,7 +15,7 @@ I'm a huge fan of productivity tools, especially when they allow me to automate 
 
 For example, if there's a sudden spike in discussion on Twitter with the terms "San Francisco Earthquake", Huginn can send a text to my phone. Or, if a phenomenal flight deal is posted on one of the many deal-finding websites out there, Huginn can send me an email with the price and a link to Google Flights to buy. 
 
-Huginn seemed to be a pretty powerful automation tool, but I wanted to take this a step further and introduce some organization - I wanted all notifications to be delivered in a centralized way. A personal Slack workspace seemed like the perfect solution for this - I can have a `#flights` channel for flight deals, or a `#trending` channel for the, er, pending San Francisco emergencies.
+Huginn seemed to be a pretty powerful automation tool, but I wanted to take this a step further and introduce some organization - I wanted all notifications to be cataloged & delivered in a centralized way. A personal Slack workspace seemed like the perfect solution for this - I can have a `#flights` channel for flight deals, or a `#trending` channel for the, er, pending San Francisco emergencies.
 
 Another hard requirement I had was that I wanted all of this to be free. Huginn is self-hosted, and I quickly realized had pretty lax runtime resource requirements, so a GCP micro tier instance (1 instance free per month) was perfect for this.
 
