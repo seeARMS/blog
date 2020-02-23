@@ -23,6 +23,36 @@ Another hard requirement I had was that I wanted all of this to be free. Huginn 
 
 The easiest way to [install Huginn](https://github.com/huginn/huginn/blob/master/doc/docker/install.md "Huginn installation") is via Docker. Luckily, Google Compute Engine supports deploying Docker containers natively on a [container-optimized OS](https://cloud.google.com/container-optimized-os/docs "Container optimized GCP OS").
 
+Head over to GCP, create a new project, and create a new instance.
+
+On the instance creation page, use the following settings:
+
+* `f1-micro` machine type (1 free per month)
+* Check 'Deploy a container image to this VM instance'
+* Container image URL is \`docker.io/huginn/huginn\`
+
+Under **Custom Metadata**, create the following key value pair:
+
+Key: startup-script 
+
+\`\`\`
+
+\#! /bin/bash
+
+sysctl vm.disk_based_swap=1
+
+fallocate -l 2G /var/swapfile
+
+chmod 600 /var/swapfile
+
+mkswap /var/swapfile
+
+swapon /var/swapfile
+
+\`\`\`
+
+and use an machine type. 
+
 This is python code:
 
     from random import randint
