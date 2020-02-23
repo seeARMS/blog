@@ -11,13 +11,19 @@ tags:
 ---
 ![](/uploads/ok.jpg)
 
-I've always enjoyed automating as much as I can. I use Home Assistant to automate my smarthome devices.  
+I'm a huge fan of productivity tools, especially when they allow me to automate certain things or organize things better. I was delighted to come across a recent  [thread on Hacker News](https://news.ycombinator.com/item?id=21772610 "Huginn") discussing a supercharged automation tool: [Huginn](https://github.com/huginn/huginn "Huginn"). This open-source software performs automated tasks by watching for 'events', and triggering 'actions' based on these events. For example, if there's a sudden spike in tweets with the terms "San Francisco Earthquake", Huginn can send a text message to my phone.
 
-I recently came across a [thread on Hacker News](https://news.ycombinator.com/item?id=21772610 "Huginn") discussing a supercharged version of IFTTT: Huginn. This open-source software performs automated tasks by watching for 'events', and triggering 'actions' based on these events. Huginn has the following benefits;
+Huginn seemed to 
 
-* Open-source & self-hosted: no concerns
+Huginn has the following features:
 
-## New Beginning
+* Open-source & self-hosted
+* Extensible: able to connect with many different websites & apps
+* 
+
+Before beginning the installation, I had an end goal in mind: I wanted to create a personal Slack workspace that let me 
+
+## 
 
 This is a new beginning on my blog on hugo and this seems pretty cool so im adding random text here because I dont know **what** to add here. So im adding a lot more random text here.
 
@@ -46,7 +52,7 @@ This is python code:
 This is bash code:
 
 \#!/usr/bin/env bash
-var="ruan"
+var=""
 echo "Hello, ${var}"
 
 ## Tweets
