@@ -57,4 +57,6 @@ With Huginn, I wanted to accomplish a few things in particular:
 * **Flight deals**: if a flight deal is posted online to one of the many websites I follow (Secret Flying, ThePointsGuy, FlyerTalk to name a few), and the flight originates from a nearby airport, notify me.
 * **Product deals**: if a product I'm interested in is posted on Slickdeals, notify me.
 
-This is a small subset of the things possible with Huginn. For more 
+I want all notifications to be sent to me via a personal Slack workspace, on different channels.
+
+This is a small subset of the things possible with Huginn. Check out the project's [Github](https://github.com/huginn/huginn#here-are-some-of-the-things-that-you-can-do-with-huginn "Huginn Github") for more inspiration.
