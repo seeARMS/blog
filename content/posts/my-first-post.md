@@ -19,9 +19,11 @@ Huginn seemed to be a pretty powerful automation tool, but I wanted to take this
 
 Another hard requirement I had was that I wanted all of this to be free. Huginn is self-hosted, and I quickly realized had pretty lax runtime resource requirements, so a GCP micro tier instance (1 instance free per month) was perfect for this.
 
-## Setting up Huginn
+## Getting Started
 
-The easiest way to [install Huginn](https://github.com/huginn/huginn/blob/master/doc/docker/install.md "Huginn installation") is via Docker. Luckily, Google Compute Engine supports deploying Docker containers natively on a [container-optimized OS](https://cloud.google.com/container-optimized-os/docs "Container optimized GCP OS").
+The easiest way to [install Huginn](https://github.com/huginn/huginn/blob/master/doc/docker/install.md "Huginn installation") is via Docker. Luckily, Google Compute Engine supports deploying Docker containers natively on a lean [container-optimized OS](https://cloud.google.com/container-optimized-os/docs "Container optimized GCP OS").
+
+f1-micro instances have 614MB of memory. This is not enough to run Huginn out of the box - doing so will cause Docker to encounter `Error Code 137` [(out of memory)](https://success.docker.com/article/what-causes-a-container-to-exit-with-code-137) errors. To solve this, we need to create a swap file.
 
 Head over to GCP, create a new project, and create a new instance.
 
