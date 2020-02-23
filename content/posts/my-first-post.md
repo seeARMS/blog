@@ -45,3 +45,16 @@ Disk-based swap is [disabled](https://stackoverflow.com/questions/58210222/how-t
 After the VM is created, head to your VM's external URL (port 3000) and you should be greeted with the default Huginn login page!
 
 ![](/uploads/Screen Shot 2020-02-23 at 3.45.38 PM.png)
+
+Now, let's set up some automation.
+
+## Automation 
+
+With Huginn, I wanted to accomplish a few things in particular:
+
+* **Twitter notifications**: whenever keywords of interest are tweeted (such as topics of interest), I want to get notified immediately. Whenever a spike occurs for other keywords ("San Francisco Emergency"), notify me.
+* **Hacker news notifications**: whenever an article hits the frontpage discussing something I'm interested in, notify me.
+* **Flight deals**: if a flight deal is posted online to one of the many websites I follow (Secret Flying, ThePointsGuy, FlyerTalk to name a few), and the flight originates from a nearby airport, notify me.
+* **Product deals**: if a product I'm interested in is posted on Slickdeals, notify me.
+
+This is a small subset of the things possible with Huginn. For more 
