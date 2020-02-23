@@ -33,16 +33,15 @@ On the instance creation page, use the following settings:
 * Check 'Deploy a container image to this VM instance'
 * Container image URL is `docker.io/huginn/huginn`
 
-
 Disk-based swap is [disabled](https://stackoverflow.com/questions/58210222/how-to-enable-swap-swapfile-on-google-container-optimized-os-on-gce) by default in container-optimized OS. To enable and set the swap file every time the VM is booted, we can use add a custom startup script:
 
-```
-#! /bin/bash
-sysctl vm.disk_based_swap=1
-fallocate -l 2G /var/swapfile
-chmod 600 /var/swapfile
-mkswap /var/swapfile
-swapon /var/swapfile
-```
+    #! /bin/bash
+    sysctl vm.disk_based_swap=1
+    fallocate -l 2G /var/swapfile
+    chmod 600 /var/swapfile
+    mkswap /var/swapfile
+    swapon /var/swapfile
 
-After creating the VM
+After the VM is created, head to your VM's external URL (port 3000) and you should be greeted with the default Huginn login page!
+
+![](/uploads/Screen Shot 2020-02-23 at 3.45.38 PM.png)
