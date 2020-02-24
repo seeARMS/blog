@@ -11,7 +11,7 @@ tags:
 ---
 ![](/uploads/automation_small.jpg)
 
-I'm a huge fan of productivity tools, especially when they allow me to automate certain things or organize things better. I was delighted to come across a recent  [thread on Hacker News](https://news.ycombinator.com/item?id=21772610 "Huginn") discussing a supercharged automation tool: [Huginn](https://github.com/huginn/huginn "Huginn"). This open-source software performs automated tasks by watching for 'events', and triggering 'actions' based on these events.
+I'm a huge fan of productivity tools, especially when they allow me to automate certain things or organize things better. I was delighted to come across a recent  [thread on Hacker News](https://news.ycombinator.com/item?id=21772610 "Huginn") discussing a supercharged automation tool: [Huginn](https://github.com/huginn/huginn "Huginn"). This open-source software performs automated tasks by using 'agents' to watch for 'events', and triggering 'actions' based on these events.
 
 For example, if there's a sudden spike in discussion on Twitter with the terms "San Francisco Earthquake", Huginn can send a text to my phone. Or, if an amazing, time-sensitive flight deal is posted on one of the many deal-finding websites out there, Huginn can send me an email with the price and a link to Google Flights.
 
@@ -71,10 +71,12 @@ To use Twitter, we need to create an OAuth application and provide credentials t
 
 Log into the [Twitter developer website](https://developer.twitter.com/en/apps "Twitter Developers") and 'Create an app'. It's a lightweight process, but the key thing to provide is the **Callback URL**. This needs to be set to `http://<your_ip>:3000/auth/twitter/callback` in order to work with Huginn.
 
-After submitting the Twitter app (and ideally getting an instant approval), you'll receive two tokens: the `API key` and the `API secret key`. Copy these, and head back over to GCP. Edit the VM you previously deployed, and under _Advanced container options_, add two new Environment variables: **TWITTER_OAUTH_KEY** and **TWITTER_OAUTH_SECRET**.
+After submitting the Twitter app (and ideally getting an instant approval), you'll receive two tokens: the `API key` and the `API secret key`. Copy these, and head back over to GCP. Edit the VM you previously deployed, and under _Advanced container options_, add two new Environment variables: **TWITTER_OAUTH_KEY** and **TWITTER_OAUTH_SECRET**:
+
+![](/uploads/Screen Shot 2020-02-23 at 4.20.45 PM.png)
 
 After saving, Huginn should restart. Log in, navigate to /services, and you should see an 'Authenticate with Twitter' button now!
 
 ![](/uploads/Screen Shot 2020-02-23 at 4.16.23 PM.png)
 
-After successful authentication, you can begin using Twitter intelligence inside Huginn. For any issues encountered, check out the [Github page on OAuth applications](https://github.com/huginn/huginn/wiki/Configuring-OAuth-applications#twitter "Github OAuth").
+Authenticate, and you can begin using Twitter intelligence inside Huginn. For any issues encountered, check out the [Github page on OAuth applications](https://github.com/huginn/huginn/wiki/Configuring-OAuth-applications#twitter "Github OAuth").
