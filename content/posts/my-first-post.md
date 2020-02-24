@@ -20,7 +20,7 @@ Huginn seemed to be a pretty powerful automation tool, but I wanted to take this
 
 Another hard requirement I had was that I wanted all of this to be free. Huginn is self-hosted, and has pretty lax runtime resource requirements (even able to run on a [Raspberry Pi](https://github.com/huginn/huginn/wiki/Running-Huginn-on-minimal-systems-with-low-RAM-&-CPU-e.g.-Raspberry-Pi)), so a GCP micro tier instance (1 instance free per month) was perfect for this.
 
-## Getting Started
+## Getting Started with GCP & Docker
 
 The easiest way to [install Huginn](https://github.com/huginn/huginn/blob/master/doc/docker/install.md "Huginn installation") is via Docker. Luckily, Google Compute Engine supports deploying Docker containers natively on a lean [container-optimized OS](https://cloud.google.com/container-optimized-os/docs "Container optimized GCP OS").
 
@@ -76,7 +76,7 @@ A **TriggerAgent**, to listen to the articles posted to SecretFlying, and use a 
 
 ![](/uploads/secret_flying_trigger_agent.png)
 
- and trigger new events every new article; and downstream agents to receive these events and perform some actions (or potentially trigger more events). 
+and trigger new events every new article; and downstream agents to receive these events and perform some actions (or potentially trigger more events).
 
 ### Twitter
 
