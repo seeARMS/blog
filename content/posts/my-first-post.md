@@ -53,18 +53,30 @@ Now, let's set up some automation.
 
 ## Automation
 
-With Huginn, I set out to accomplish a few things in particular:
+With Huginn, I set out to accomplish a few things in particular. Note that this is a small subset of the things possible with Huginn - check out the project's [Github](https://github.com/huginn/huginn#here-are-some-of-the-things-that-you-can-do-with-huginn "Huginn Github") for more inspiration.
 
-* **Twitter notifications**: whenever keywords of interest are tweeted (such as topics of interest), I want to get notified immediately. Whenever a spike occurs for other keywords ("San Francisco Emergency"), notify me.
+* **Twitter notifications**: whenever keywords of interest are tweeted (such as my projects or blog), I want to get notified immediately. Whenever a spike occurs for other keywords ("San Francisco Emergency"), notify me.
 * **Hacker news notifications**: whenever an article hits the frontpage discussing something I'm interested in, notify me.
 * **Flight deals**: if a flight deal is posted online to one of the many websites I follow (Secret Flying, ThePointsGuy, FlyerTalk to name a few), and the flight originates from a nearby airport, notify me.
 * **Product deals**: if a product I'm interested in is posted on Slickdeals, notify me.
 
-_This is a small subset of the things possible with Huginn. Check out the project's_ [_Github_](https://github.com/huginn/huginn#here-are-some-of-the-things-that-you-can-do-with-huginn "Huginn Github") _for more inspiration._
-
 I want all notifications to be sent to me via a personal Slack workspace, on different channels.
 
-There are a few things required for this.
+Many of my usecases heavily rely on the built-in `RssAgent` to listen to RSS feeds provided by sites of interest. Downstream agents (such as the `TriggerAgent)` can be used to filter for specific keywords and pass to other  agents (such as the `SlackAgent`) to finally provide a notification.
+
+Multiple agents for a usecase can be grouped into a `Scenario`.
+
+For example, I created a `Secret Flying` Scenario which had the following agents:
+
+**RSSAgent**, used to listen to the entire Secret Flying feed.
+
+![](/uploads/secret_flying_rss_agent.png)
+
+A **TriggerAgent**, to listen to the articles posted to SecretFlying, and use a regular expression to filter for only relevant airports in the title. When one is posted, it emits a message with the URL, title and description.
+
+![](/uploads/secret_flying_trigger_agent.png)
+
+ and trigger new events every new article; and downstream agents to receive these events and perform some actions (or potentially trigger more events). 
 
 ### Twitter
 
