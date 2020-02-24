@@ -11,8 +11,6 @@ draft: true
 
 ---
 ![](/uploads/automation_small.jpg)
-![](/uploads/Screen Shot 2020-02-23 at 3.45.38 PM.png)
-
 
 I'm a huge fan of productivity tools, especially when they allow me to automate certain things or organize things better. I was delighted to come across a recent  [thread on Hacker News](https://news.ycombinator.com/item?id=21772610 "Huginn") discussing a supercharged automation tool: [Huginn](https://github.com/huginn/huginn "Huginn"). This open-source software performs automated tasks by using 'agents' to watch for 'events', and triggering 'actions' based on these events.
 
@@ -47,8 +45,7 @@ Disk-based swap is [disabled](https://stackoverflow.com/questions/58210222/how-t
 
 After the VM is created, head to your VM's external URL (port 3000) and you should be greeted with the default Huginn login page!
 
-![](/uploads/Screen Shot 2020-02-23 at 3.45.38 PM.png)
-![](/uploads/automation_small.jpg)
+![](/uploads/huginn_default_login.png)
 
 I suggest [reserving a static external IP](https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address "Static IP on GCP") for this VM, so the IP doesn't change. You can even take it a step further and associate this to a domain name - like automation.colinarms.com - for ease of access.
 
@@ -77,10 +74,10 @@ Log into the [Twitter developer website](https://developer.twitter.com/en/apps "
 
 After submitting the Twitter app (and ideally getting an instant approval), you'll receive two tokens: the `API key` and the `API secret key`. Copy these, and head back over to GCP. Edit the VM you previously deployed, and under _Advanced container options_, add two new Environment variables: **TWITTER_OAUTH_KEY** and **TWITTER_OAUTH_SECRET**:
 
-![](/uploads/Screen Shot 2020-02-23 at 4.20.45 PM.png)
+![](/uploads/twitter_env_vars.png)
 
 After saving, Huginn should restart. Log in, navigate to /services, and you should see an 'Authenticate with Twitter' button now!
 
-![](/uploads/Screen Shot 2020-02-23 at 4.16.23 PM.png)
+![](/uploads/twitter_authenticate.png)
 
 Authenticate, and you can begin using Twitter intelligence inside Huginn. For any issues encountered, check out the [Github page on OAuth applications](https://github.com/huginn/huginn/wiki/Configuring-OAuth-applications#twitter "Github OAuth").
