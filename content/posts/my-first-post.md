@@ -11,6 +11,8 @@ draft: true
 
 ---
 ![](/uploads/automation_small.jpg)
+![](/uploads/Screen Shot 2020-02-23 at 3.45.38 PM.png)
+
 
 I'm a huge fan of productivity tools, especially when they allow me to automate certain things or organize things better. I was delighted to come across a recent  [thread on Hacker News](https://news.ycombinator.com/item?id=21772610 "Huginn") discussing a supercharged automation tool: [Huginn](https://github.com/huginn/huginn "Huginn"). This open-source software performs automated tasks by using 'agents' to watch for 'events', and triggering 'actions' based on these events.
 
@@ -46,6 +48,7 @@ Disk-based swap is [disabled](https://stackoverflow.com/questions/58210222/how-t
 After the VM is created, head to your VM's external URL (port 3000) and you should be greeted with the default Huginn login page!
 
 ![](/uploads/Screen Shot 2020-02-23 at 3.45.38 PM.png)
+![](/uploads/automation_small.jpg)
 
 I suggest [reserving a static external IP](https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address "Static IP on GCP") for this VM, so the IP doesn't change. You can even take it a step further and associate this to a domain name - like automation.colinarms.com - for ease of access.
 
