@@ -46,17 +46,35 @@ After the VM is created, head to your VM's external URL (port 3000) and you shou
 
 ![](/uploads/Screen Shot 2020-02-23 at 3.45.38 PM.png)
 
+I suggest [reserving a static external IP](https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address "Static IP on GCP") for this VM, so the IP doesn't change. You can even take it a step further and associate this to a domain name - like automation.colinarms.com - for ease of access.
+
 Now, let's set up some automation.
 
-## Automation 
+## Automation
 
-With Huginn, I wanted to accomplish a few things in particular:
+With Huginn, I set out to accomplish a few things in particular:
 
 * **Twitter notifications**: whenever keywords of interest are tweeted (such as topics of interest), I want to get notified immediately. Whenever a spike occurs for other keywords ("San Francisco Emergency"), notify me.
 * **Hacker news notifications**: whenever an article hits the frontpage discussing something I'm interested in, notify me.
 * **Flight deals**: if a flight deal is posted online to one of the many websites I follow (Secret Flying, ThePointsGuy, FlyerTalk to name a few), and the flight originates from a nearby airport, notify me.
 * **Product deals**: if a product I'm interested in is posted on Slickdeals, notify me.
 
+_This is a small subset of the things possible with Huginn. Check out the project's_ [_Github_](https://github.com/huginn/huginn#here-are-some-of-the-things-that-you-can-do-with-huginn "Huginn Github") _for more inspiration._
+
 I want all notifications to be sent to me via a personal Slack workspace, on different channels.
 
-This is a small subset of the things possible with Huginn. Check out the project's [Github](https://github.com/huginn/huginn#here-are-some-of-the-things-that-you-can-do-with-huginn "Huginn Github") for more inspiration.
+There are a few things required for this.
+
+### Twitter
+
+To use Twitter, we need to create an OAuth application and provide credentials to Huginn.
+
+Log into the [Twitter developer website](https://developer.twitter.com/en/apps "Twitter Developers") and 'Create an app'. It's a lightweight process, but the key thing to provide is the **Callback URL**. This needs to be set to `http://<your_ip>:3000/auth/twitter/callback` in order to work with Huginn.
+
+After submitting the Twitter app (and ideally getting an instant approval), you'll receive two tokens: the `API key` and the `API secret key`. Copy these, and head back over to GCP. Edit the VM you previously deployed, and under _Advanced container options_, add two new Environment variables: **TWITTER_OAUTH_KEY** and **TWITTER_OAUTH_SECRET**.
+
+After saving, Huginn should restart. Log in, navigate to /services, and you should see an 'Authenticate with Twitter' button now!
+
+![](/uploads/Screen Shot 2020-02-23 at 4.16.23 PM.png)
+
+After successful authentication, you can begin using Twitter intelligence inside Huginn. For any issues encountered, check out the [Github page on OAuth applications](https://github.com/huginn/huginn/wiki/Configuring-OAuth-applications#twitter "Github OAuth").
