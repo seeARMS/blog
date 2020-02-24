@@ -7,6 +7,7 @@ categories:
 tags:
 - automation
 - tech
+draft: true
 
 ---
 ![](/uploads/automation_small.jpg)
