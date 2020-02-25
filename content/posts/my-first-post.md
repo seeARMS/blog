@@ -21,9 +21,9 @@ Compared to other popular automation tools (IFTTT, Zapier), Huginn has the follo
 * Powerful data processing: write your own JS or use shell scripts
 * Liquid templating
 
-Huginn seemed to be a pretty powerful automation tool, but I wanted to take this a step further and introduce some organization - I wanted all notifications to be cataloged & delivered in a centralized way. A personal Slack workspace seemed like the perfect solution for this - I can have a `#flights` channel for flight deals, or a `#trending` channel for the, er, pending San Francisco emergencies.
+I wanted to take this automation a step further and introduce some organization - I wanted all notifications to be cataloged & delivered in a centralized way. A personal Slack workspace seemed like the perfect solution for this - I can have a `#flights` channel for flight deals, or a `#trending` channel for the, er, pending San Francisco emergencies.
 
-Another hard requirement I had was that I wanted all of this to be free. Huginn is self-hosted, and has pretty lax runtime resource requirements (even able to run on a [Raspberry Pi](https://github.com/huginn/huginn/wiki/Running-Huginn-on-minimal-systems-with-low-RAM-&-CPU-e.g.-Raspberry-Pi), with some tweaking), so a free, GCP micro tier instance was perfect for this.
+Another requirement I had was that I wanted all of this to be free. Huginn is self-hosted, and has pretty lax runtime resource requirements (even able to run on a [Raspberry Pi](https://github.com/huginn/huginn/wiki/Running-Huginn-on-minimal-systems-with-low-RAM-&-CPU-e.g.-Raspberry-Pi), with some tweaking), so a free GCP micro tier instance was perfect for this. 
 
 ## My Automation Goals
 
@@ -89,7 +89,7 @@ You can imagine how this works in practice. For the flight deals, for example: w
 
 Multiple agents for a single usecase can be grouped into a `Scenario` - in the above example, a `Flight Deal Scenario` would make sense.
 
-Let's walk through this example.
+Let's walk through this example. If you want to get started immediately, you can [download my agents](https://gist.github.com/seeARMS/103b3399f3f925fb6c366600f0bad3c6) and import them into Huginn directly.
 
 ## Finding Flight Deals
 
