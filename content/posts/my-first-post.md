@@ -22,7 +22,7 @@ Another hard requirement I had was that I wanted all of this to be free. Huginn 
 
 ## My Automation Goals
 
-Let's formalize what, specifically, I wanted to accomplish with Huginn. Note that this is a small subset of the things possible with Huginn - check out the project's [Github](https://github.com/huginn/huginn#here-are-some-of-the-things-that-you-can-do-with-huginn "Huginn Github") for more inspiration.
+Let's formalize what I specifically wanted to accomplish with Huginn. Note that this is a small subset of the things possible with Huginn - check out the project's [Github](https://github.com/huginn/huginn#here-are-some-of-the-things-that-you-can-do-with-huginn "Huginn Github") for more inspiration.
 
 * **Twitter notifications**: whenever keywords of interest are tweeted (such as my projects or blog), I want to get notified immediately. Whenever a spike occurs for other keywords ("San Francisco Emergency"), notify me.
 * **Hacker news notifications**: whenever an article hits the frontpage discussing something I'm interested in, notify me.
@@ -76,25 +76,27 @@ I suggest [reserving a static external IP](https://cloud.google.com/compute/docs
 
 Now, let's set up some automation.
 
-### How Huginn Works: Agents & Events
+## How Huginn Works: Agents & Events
 
 At a high level, Huginn relies on two key things: agents and events. Agents are things that monitor for you and create an event (possible if some criteria is met). An example agent is an `RssAgent`, which monitors an RSS feed for new articles. Every time a new article is posted, an event is created. This event can perhaps be passed to a `TriggerAgent`, which uses some regex filter on the event to only listen to keywords of interest; and finally it emits a formatted message as an event, perhaps to a `SlackAgent`, that finally sends a message to a Slack channel.
 
 You can imagine how this works in practice. For the flight deals, for example: we can create an `RssAgent` for the Secret Flying RSS feed. The `TriggerAgent` can listen to this event, filter for "San Francisco Airport", and the `SlackAgent` can message my `#flights` channel when this happens
 
-Multiple agents for a usecase can be grouped into a `Scenario` - in the above example, a `Secret Flying Scenario` would make sense.
+Multiple agents for a single usecase can be grouped into a `Scenario` - in the above example, a `Flight Deal Scenario` would make sense.
 
-A few agents in particular require more setup - Twitter and Slack.
+Let's walk through this example.
 
-### Setting up the Twitter agent
+## Setting up Flight Deals
+
+On Huginn, create a new RSS Agent. Schedule it for however frequently you'd like it to check for updates.
+
+## Setting up the Twitter agent
 
 To use Twitter, we need to create an OAuth application and provide credentials to Huginn.
 
 Log into the [Twitter developer website](https://developer.twitter.com/en/apps "Twitter Developers") and 'Create an app'. It's a lightweight process, but the key thing to provide is the **Callback URL**. This needs to be set to `http://<your_ip>:3000/auth/twitter/callback` in order to work with Huginn.
 
-After submitting the Twitter app (and ideally getting an instant approval), you'll receive two tokens: the `API key` and the `API secret key`. Copy these, and head back over to GCP. Edit the VM you previously deployed, and under _Advanced container options_, add two new Environment variables: **TWITTER_OAUTH_KEY** and **TWITTER_OAUTH_SECRET**:
-
-![](/uploads/twitter_env_vars.png)
+After submitting the Twitter app (and ideally getting an instant approval), you'll receive two tokens: the `API key` and the `API secret key`. Copy these, and head back over to GCP. Edit the VM you previously deployed, and under _Advanced container options_, add two new Environment variables: **TWITTER_OAUTH_KEY** and **TWITTER_OAUTH_SECRET**.
 
 After saving, Huginn should restart. Log in, navigate to /services, and you should see an 'Authenticate with Twitter' button now!
 
@@ -102,6 +104,3 @@ After saving, Huginn should restart. Log in, navigate to /services, and you shou
 
 Authenticate, and you can begin using Twitter intelligence inside Huginn via the Twitter agent. For any issues encountered, check out the [Github page on OAuth applications](https://github.com/huginn/huginn/wiki/Configuring-OAuth-applications#twitter "Github OAuth").
 
-### Setting up the Slack agent
-
-Head over to [Slack](https://slack.com/create "Slack") to create a new workspace.
