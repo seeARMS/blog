@@ -20,6 +20,17 @@ Huginn seemed to be a pretty powerful automation tool, but I wanted to take this
 
 Another hard requirement I had was that I wanted all of this to be free. Huginn is self-hosted, and has pretty lax runtime resource requirements (even able to run on a [Raspberry Pi](https://github.com/huginn/huginn/wiki/Running-Huginn-on-minimal-systems-with-low-RAM-&-CPU-e.g.-Raspberry-Pi)), so a GCP micro tier instance (1 instance free per month) was perfect for this.
 
+## My Automation Goals
+
+Let's formalize what, specifically, I wanted to accomplish with Huginn. Note that this is a small subset of the things possible with Huginn - check out the project's [Github](https://github.com/huginn/huginn#here-are-some-of-the-things-that-you-can-do-with-huginn "Huginn Github") for more inspiration.
+
+* **Twitter notifications**: whenever keywords of interest are tweeted (such as my projects or blog), I want to get notified immediately. Whenever a spike occurs for other keywords ("San Francisco Emergency"), notify me.
+* **Hacker news notifications**: whenever an article hits the frontpage discussing something I'm interested in, notify me.
+* **Flight deals**: if a flight deal is posted online to one of the many websites I follow (Secret Flying, ThePointsGuy, FlyerTalk to name a few), and the flight originates from a nearby airport, notify me.
+* **Product deals**: if a product I'm interested in is posted on Slickdeals, notify me.
+
+I want all notifications to be sent to me via a personal Slack workspace, on different channels.
+
 ## Deployment Prerequisites
 
 The easiest way to [install Huginn](https://github.com/huginn/huginn/blob/master/doc/docker/install.md "Huginn installation") is via Docker. Luckily, Google Compute Engine supports deploying Docker containers natively on a lean [container-optimized OS](https://cloud.google.com/container-optimized-os/docs "Container optimized GCP OS").
@@ -64,17 +75,6 @@ After the VM is created, head to your VM's external URL (port 3000) and you shou
 I suggest [reserving a static external IP](https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address "Static IP on GCP") for this VM, so the IP doesn't change. You can even take it a step further and associate this to a domain name - like automation.colinarms.com - for ease of access.
 
 Now, let's set up some automation.
-
-## My Automation Goals
-
-I set out to accomplish a few things in particular. Note that this is a small subset of the things possible with Huginn - check out the project's [Github](https://github.com/huginn/huginn#here-are-some-of-the-things-that-you-can-do-with-huginn "Huginn Github") for more inspiration.
-
-* **Twitter notifications**: whenever keywords of interest are tweeted (such as my projects or blog), I want to get notified immediately. Whenever a spike occurs for other keywords ("San Francisco Emergency"), notify me.
-* **Hacker news notifications**: whenever an article hits the frontpage discussing something I'm interested in, notify me.
-* **Flight deals**: if a flight deal is posted online to one of the many websites I follow (Secret Flying, ThePointsGuy, FlyerTalk to name a few), and the flight originates from a nearby airport, notify me.
-* **Product deals**: if a product I'm interested in is posted on Slickdeals, notify me.
-
-I want all notifications to be sent to me via a personal Slack workspace, on different channels.
 
 ### How Huginn Works: Agents & Events
 
