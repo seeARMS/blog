@@ -16,6 +16,11 @@ I'm a huge fan of productivity tools, especially when they allow me to automate 
 
 For example, if there's a sudden spike in discussion on Twitter with the terms "San Francisco Earthquake", Huginn can send a text to my phone. Or, if an amazing, time-sensitive flight deal is posted on one of the many deal-finding websites out there, Huginn can send me an email with the price and a link to Google Flights.
 
+Compared to other popular automation tools (IFTTT, Zapier), Huginn has the following benefits:
+* Self-hosted & completely private
+* Powerful data processing: write your own JS or use shell scripts
+* Liquid templating
+
 Huginn seemed to be a pretty powerful automation tool, but I wanted to take this a step further and introduce some organization - I wanted all notifications to be cataloged & delivered in a centralized way. A personal Slack workspace seemed like the perfect solution for this - I can have a `#flights` channel for flight deals, or a `#trending` channel for the, er, pending San Francisco emergencies.
 
 Another hard requirement I had was that I wanted all of this to be free. Huginn is self-hosted, and has pretty lax runtime resource requirements (even able to run on a [Raspberry Pi](https://github.com/huginn/huginn/wiki/Running-Huginn-on-minimal-systems-with-low-RAM-&-CPU-e.g.-Raspberry-Pi), with some tweaking), so a free, GCP micro tier instance was perfect for this.
@@ -149,16 +154,6 @@ Save your agent, and eventually, you should begin receiving new deals!
 
 ![](/uploads/slack_secret_flying.png)
 
-## Setting up the Twitter agent
+## Wrapping it up
 
-To use Twitter, we need to create an OAuth application and provide credentials to Huginn.
-
-Log into the [Twitter developer website](https://developer.twitter.com/en/apps "Twitter Developers") and 'Create an app'. It's a lightweight process, but the key thing to provide is the **Callback URL**. This needs to be set to `http://<your_ip>:3000/auth/twitter/callback` in order to work with Huginn.
-
-After submitting the Twitter app (and ideally getting an instant approval), you'll receive two tokens: the `API key` and the `API secret key`. Copy these, and head back over to GCP. Edit the VM you previously deployed, and under _Advanced container options_, add two new Environment variables: **TWITTER_OAUTH_KEY** and **TWITTER_OAUTH_SECRET**.
-
-After saving, Huginn should restart. Log in, navigate to /services, and you should see an 'Authenticate with Twitter' button now!
-
-![](/uploads/twitter_authenticate.png)
-
-Authenticate, and you can begin using Twitter intelligence inside Huginn via the Twitter agent. For any issues encountered, check out the [Github page on OAuth applications](https://github.com/huginn/huginn/wiki/Configuring-OAuth-applications#twitter "Github OAuth").
+The other usecases I described at the top are very similar to the one I just described - just with different RSS feeds and filters. You can download my Scenarios and import them into your own Huginn installation to play around with from this [public Gist](https://gist.github.com/seeARMS/103b3399f3f925fb6c366600f0bad3c6 "Huginn scenarios Gist").
