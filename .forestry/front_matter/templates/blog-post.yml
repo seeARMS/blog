@@ -12,3 +12,5 @@ fields:
       format: markdown
   label: Example
   description: asdasd
+pages:
+- content/posts/twitter_agent_draft.md
