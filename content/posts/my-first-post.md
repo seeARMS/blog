@@ -20,9 +20,13 @@ Huginn seemed to be a pretty powerful automation tool, but I wanted to take this
 
 Another hard requirement I had was that I wanted all of this to be free. Huginn is self-hosted, and has pretty lax runtime resource requirements (even able to run on a [Raspberry Pi](https://github.com/huginn/huginn/wiki/Running-Huginn-on-minimal-systems-with-low-RAM-&-CPU-e.g.-Raspberry-Pi)), so a GCP micro tier instance (1 instance free per month) was perfect for this.
 
-## Getting Started with GCP & Docker
+## Deploying Huginn on GCP via Docker
 
 The easiest way to [install Huginn](https://github.com/huginn/huginn/blob/master/doc/docker/install.md "Huginn installation") is via Docker. Luckily, Google Compute Engine supports deploying Docker containers natively on a lean [container-optimized OS](https://cloud.google.com/container-optimized-os/docs "Container optimized GCP OS").
+
+There are a few key things we need to do in order to have a successful Huginn deploy on the F1-micro instances.
+
+**Create a swap file**.
 
 f1-micro instances have 614MB of memory. This is not enough to run Huginn out of the box - doing so will cause Docker to encounter `Error Code 137` [(out of memory)](https://success.docker.com/article/what-causes-a-container-to-exit-with-code-137) errors. To solve this, we need to create a swap file in the VM.
 
@@ -33,6 +37,9 @@ On the instance creation page, use the following settings:
 * `f1-micro` machine type (1 free per month)
 * Check 'Deploy a container image to this VM instance'
 * Container image URL is `docker.io/huginn/huginn`
+* Add a Directory volume mount. The mount and host paths should be `/var/lib/mysql`
+
+The last step is important because 
 
 Disk-based swap is [disabled](https://stackoverflow.com/questions/58210222/how-to-enable-swap-swapfile-on-google-container-optimized-os-on-gce) by default in container-optimized OS. To enable and set the swap file every time the VM is booted, we can use add a custom startup script:
 
@@ -51,9 +58,9 @@ I suggest [reserving a static external IP](https://cloud.google.com/compute/docs
 
 Now, let's set up some automation.
 
-## Automation
+## My Automation Goals
 
-With Huginn, I set out to accomplish a few things in particular. Note that this is a small subset of the things possible with Huginn - check out the project's [Github](https://github.com/huginn/huginn#here-are-some-of-the-things-that-you-can-do-with-huginn "Huginn Github") for more inspiration.
+I set out to accomplish a few things in particular. Note that this is a small subset of the things possible with Huginn - check out the project's [Github](https://github.com/huginn/huginn#here-are-some-of-the-things-that-you-can-do-with-huginn "Huginn Github") for more inspiration.
 
 * **Twitter notifications**: whenever keywords of interest are tweeted (such as my projects or blog), I want to get notified immediately. Whenever a spike occurs for other keywords ("San Francisco Emergency"), notify me.
 * **Hacker news notifications**: whenever an article hits the frontpage discussing something I'm interested in, notify me.
@@ -62,23 +69,17 @@ With Huginn, I set out to accomplish a few things in particular. Note that this 
 
 I want all notifications to be sent to me via a personal Slack workspace, on different channels.
 
-Many of my usecases heavily rely on the built-in `RssAgent` to listen to RSS feeds provided by sites of interest. Downstream agents (such as the `TriggerAgent)` can be used to filter for specific keywords and pass to other  agents (such as the `SlackAgent`) to finally provide a notification.
+### How Huginn Works: Agents & Events
 
-Multiple agents for a usecase can be grouped into a `Scenario`.
+At a high level, Huginn relies on two key things: agents and events. Agents are things that monitor for you and create an event (possible if some criteria is met). An example agent is an `RssAgent`, which monitors an RSS feed for new articles. Every time a new article is posted, an event is created. This event can perhaps be passed to a `TriggerAgent`, which uses some regex filter on the event to only listen to keywords of interest; and finally it emits a formatted message as an event, perhaps to a `SlackAgent`, that finally sends a message to a Slack channel.
 
-For example, I created a `Secret Flying` Scenario which had the following agents:
+You can imagine how this works in practice. For the flight deals, for example: we can create an `RssAgent` for the Secret Flying RSS feed. The `TriggerAgent` can listen to this event, filter for "San Francisco Airport", and the `SlackAgent` can message my `#flights` channel when this happens
 
-**RSSAgent**, used to listen to the entire Secret Flying feed.
+Multiple agents for a usecase can be grouped into a `Scenario` - in the above example, a `Secret Flying Scenario` would make sense.
 
-![](/uploads/secret_flying_rss_agent.png)
+A few agents in particular require more setup - Twitter and Slack.
 
-A **TriggerAgent**, to listen to the articles posted to SecretFlying, and use a regular expression to filter for only relevant airports in the title. When one is posted, it emits a message with the URL, title and description.
-
-![](/uploads/secret_flying_trigger_agent.png)
-
-and trigger new events every new article; and downstream agents to receive these events and perform some actions (or potentially trigger more events).
-
-### Twitter
+### Setting up the Twitter agent
 
 To use Twitter, we need to create an OAuth application and provide credentials to Huginn.
 
@@ -92,4 +93,8 @@ After saving, Huginn should restart. Log in, navigate to /services, and you shou
 
 ![](/uploads/twitter_authenticate.png)
 
-Authenticate, and you can begin using Twitter intelligence inside Huginn. For any issues encountered, check out the [Github page on OAuth applications](https://github.com/huginn/huginn/wiki/Configuring-OAuth-applications#twitter "Github OAuth").
+Authenticate, and you can begin using Twitter intelligence inside Huginn via the Twitter agent. For any issues encountered, check out the [Github page on OAuth applications](https://github.com/huginn/huginn/wiki/Configuring-OAuth-applications#twitter "Github OAuth").
+
+### Setting up the Slack agent
+
+Head over to [Slack](https://slack.com/create "Slack") to create a new workspace.
