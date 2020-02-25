@@ -37,7 +37,6 @@ Disk-based swap is [disabled](https://stackoverflow.com/questions/58210222/how-t
 By default, Huginn creates a database inside the container. This is problematic, as the container now relies on _state_, and your database will [get deleted every Huginn upgrade](https://github.com/huginn/huginn/blob/master/docker/multi-process/README.md). We can use a volume mount to mount the database in the container to a directory in the host. 
 
 ## Deploying Huginn on GCP via Docker
-
 Head over to GCP, create a new project, and create a new instance.
 
 On the instance creation page, use the following settings:
@@ -47,8 +46,7 @@ On the instance creation page, use the following settings:
 * Container image URL is `docker.io/huginn/huginn`
 * Add a Directory volume mount. The mount and host paths should be `/var/lib/mysql`
 
-The last step is important because 
-
+We also need to add in a statup script. We need to 1) enable and turn on a swap file, and 2) change permissions of the volume mount on the host. (The latter is required or MySQL won't be able to start).
 
     #! /bin/bash
     sysctl vm.disk_based_swap=1
@@ -56,6 +54,8 @@ The last step is important because
     chmod 600 /var/swapfile
     mkswap /var/swapfile
     swapon /var/swapfile
+    chmod 777 /var/lib/mysql
+
 
 After the VM is created, head to your VM's external URL (port 3000) and you should be greeted with the default Huginn login page!
 
