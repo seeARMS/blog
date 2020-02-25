@@ -24,11 +24,18 @@ Another hard requirement I had was that I wanted all of this to be free. Huginn 
 
 The easiest way to [install Huginn](https://github.com/huginn/huginn/blob/master/doc/docker/install.md "Huginn installation") is via Docker. Luckily, Google Compute Engine supports deploying Docker containers natively on a lean [container-optimized OS](https://cloud.google.com/container-optimized-os/docs "Container optimized GCP OS").
 
-There are a few key things we need to do in order to have a successful Huginn deploy on the F1-micro instances.
+There are a few key things we need to do in order to have a successful Huginn deploy on the F1-micro (free tier) instances.
 
-**Create a swap file**.
+**Enable and create a swap file**.
 
 f1-micro instances have 614MB of memory. This is not enough to run Huginn out of the box - doing so will cause Docker to encounter `Error Code 137` [(out of memory)](https://success.docker.com/article/what-causes-a-container-to-exit-with-code-137) errors. To solve this, we need to create a swap file in the VM.
+
+Disk-based swap is [disabled](https://stackoverflow.com/questions/58210222/how-to-enable-swap-swapfile-on-google-container-optimized-os-on-gce) by default in container-optimized OS. To enable and set the swap file every time the VM is booted, we can use a custom startup script (described below).
+
+**Mount the Huginn MySQL database to a directory on the host**.
+
+By default, Huginn creates a database inside the container. This is problematic, as the container now relies on _state_, and your database will [get deleted every Huginn upgrade](https://github.com/huginn/huginn/blob/master/docker/multi-process/README.md). We can use a volume mount to mount the database in the container to a directory in the host. 
+
 
 Head over to GCP, create a new project, and create a new instance.
 
@@ -41,7 +48,6 @@ On the instance creation page, use the following settings:
 
 The last step is important because 
 
-Disk-based swap is [disabled](https://stackoverflow.com/questions/58210222/how-to-enable-swap-swapfile-on-google-container-optimized-os-on-gce) by default in container-optimized OS. To enable and set the swap file every time the VM is booted, we can use add a custom startup script:
 
     #! /bin/bash
     sysctl vm.disk_based_swap=1
