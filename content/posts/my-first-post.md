@@ -108,6 +108,8 @@ Expected update period is the period at which Huginn should expect the agent to 
 
 Save your agent, and give it a manual run - you should see events populate from the underlying feed.
 
+### 2) Filtering for nearby airports
+
 Now, create a new agent, but this time a Trigger Agent. We want to filter the above RSS feed for only nearby airports - in my case, San Francisco or San Jose airport.
 
 Fill it out similar to the first agent. But, this time select your RSS Agent as this agent's `source`. Events from the RSS Agent will be fed into this.
@@ -128,6 +130,8 @@ Put the following JSON in the options:
     }
 
 We're filtering the RSS feed's title to contain my nearby airports, and emitting a `message` with the URL, title and a description.
+
+### 3) Notifying on Slack
 
 Lastly, create a Slack agent. After [registering a new Slack workspace](https://slack.com/get-started#/) and [creating a new Slack webhook](https://my.slack.com/services/new/incoming-webhook), set the `source` to the Trigger Agent you just created.
 
