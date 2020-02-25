@@ -45,9 +45,10 @@ Disk-based swap is [disabled](https://stackoverflow.com/questions/58210222/how-t
 
 **Mount the Huginn MySQL database to a directory on the host**.
 
-By default, Huginn creates a database inside the container. This is problematic, as the container now relies on _state_, and your database will [get deleted every Huginn upgrade](https://github.com/huginn/huginn/blob/master/docker/multi-process/README.md). We can use a volume mount to mount the database in the container to a directory in the host. 
+By default, Huginn creates a database inside the container. This is problematic, as the container now relies on _state_, and your database will [get deleted every Huginn upgrade](https://github.com/huginn/huginn/blob/master/docker/multi-process/README.md). We can use a volume mount to mount the database in the container to a directory in the host.
 
 ## Deploying Huginn on GCP via Docker
+
 Head over to GCP, create a new project, and create a new instance.
 
 On the instance creation page, use the following settings:
@@ -67,7 +68,6 @@ We also need to add in a statup script. We need to 1) enable and turn on a swap 
     swapon /var/swapfile
     chmod 777 /var/lib/mysql
 
-
 After the VM is created, head to your VM's external URL (port 3000) and you should be greeted with the default Huginn login page!
 
 ![](/uploads/huginn_default_login.png)
@@ -86,9 +86,64 @@ Multiple agents for a single usecase can be grouped into a `Scenario` - in the a
 
 Let's walk through this example.
 
-## Setting up Flight Deals
+## Finding Flight Deals
 
-On Huginn, create a new RSS Agent. Schedule it for however frequently you'd like it to check for updates.
+### 1) Monitoring the RSS feed
+
+On Huginn, create a new RSS Agent. Configure the following params:
+
+* **Name** your agent something descriptive. I used "Secret Flying RSS Agent".
+* **Schedule** your agent for however frequently you'd like it to check for updates. I used 30 mins.
+* **Keep events** for some short period of time. I used 7 days.
+
+Put the following JSON in the options:
+
+    {
+      "expected_update_period_in_days": "2",
+      "clean": "true",
+      "url": "https://www.secretflying.com/feed/"
+    }
+
+Expected update period is the period at which Huginn should expect the agent to be updated - if it doesn't happen, the agent is considered not working.
+
+Save your agent, and give it a manual run - you should see events populate from the underlying feed.
+
+Now, create a new agent, but this time a Trigger Agent. We want to filter the above RSS feed for only nearby airports - in my case, San Francisco or San Jose airport.
+
+Fill it out similar to the first agent. But, this time select your RSS Agent as this agent's `source`. Events from the RSS Agent will be fed into this.
+
+Put the following JSON in the options:
+
+    {
+      "expected_receive_period_in_days": "2",
+      "keep_event": "false",
+      "rules": [
+        {
+          "type": "regex",
+          "value": "(sfo|san francisco|sjc|san jose)",
+          "path": "title"
+        }
+      ],
+      "message": "[Secret Flying] <a href=\"{{url}}\">{{title}}<\/a> {{description}}"
+    }
+
+We're filtering the RSS feed's title to contain my nearby airports, and emitting a `message` with the URL, title and a description.
+
+Lastly, create a Slack agent. After [registering a new Slack workspace](https://slack.com/get-started#/) and [creating a new Slack webhook](https://my.slack.com/services/new/incoming-webhook), set the `source` to the Trigger Agent you just created.
+
+Put the following JSON in the options:
+
+    {
+      "webhook_url": "https://hooks.slack.com/services/your-webhook-url",
+      "channel": "#flights",
+      "username": "Huginn",
+      "message": "{{message}}",
+      "icon": ""
+    }
+
+Save your agent, and eventually, you should begin receiving new deals!
+
+![](/uploads/slack_secret_flying.png)
 
 ## Setting up the Twitter agent
 
@@ -103,4 +158,3 @@ After saving, Huginn should restart. Log in, navigate to /services, and you shou
 ![](/uploads/twitter_authenticate.png)
 
 Authenticate, and you can begin using Twitter intelligence inside Huginn via the Twitter agent. For any issues encountered, check out the [Github page on OAuth applications](https://github.com/huginn/huginn/wiki/Configuring-OAuth-applications#twitter "Github OAuth").
-
