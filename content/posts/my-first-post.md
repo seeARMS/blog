@@ -20,7 +20,7 @@ Huginn seemed to be a pretty powerful automation tool, but I wanted to take this
 
 Another hard requirement I had was that I wanted all of this to be free. Huginn is self-hosted, and has pretty lax runtime resource requirements (even able to run on a [Raspberry Pi](https://github.com/huginn/huginn/wiki/Running-Huginn-on-minimal-systems-with-low-RAM-&-CPU-e.g.-Raspberry-Pi)), so a GCP micro tier instance (1 instance free per month) was perfect for this.
 
-## Deploying Huginn on GCP via Docker
+## Deployment Prerequisites
 
 The easiest way to [install Huginn](https://github.com/huginn/huginn/blob/master/doc/docker/install.md "Huginn installation") is via Docker. Luckily, Google Compute Engine supports deploying Docker containers natively on a lean [container-optimized OS](https://cloud.google.com/container-optimized-os/docs "Container optimized GCP OS").
 
@@ -36,6 +36,7 @@ Disk-based swap is [disabled](https://stackoverflow.com/questions/58210222/how-t
 
 By default, Huginn creates a database inside the container. This is problematic, as the container now relies on _state_, and your database will [get deleted every Huginn upgrade](https://github.com/huginn/huginn/blob/master/docker/multi-process/README.md). We can use a volume mount to mount the database in the container to a directory in the host. 
 
+## Deploying Huginn on GCP via Docker
 
 Head over to GCP, create a new project, and create a new instance.
 
