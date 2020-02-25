@@ -150,10 +150,10 @@ Put the following JSON in the options:
       "icon": ""
     }
 
-Save your agent, and eventually, you should begin receiving new deals!
+Save your agent, and eventually you should begin receiving flight deals!
 
 ![](/uploads/slack_secret_flying.png)
 
 ## Wrapping it up
 
-The other usecases I described at the top are very similar to the one I just described - just with different RSS feeds and filters. You can download my Scenarios and import them into your own Huginn installation to play around with from this [public Gist](https://gist.github.com/seeARMS/103b3399f3f925fb6c366600f0bad3c6 "Huginn scenarios Gist").
+This example is just scratching the surface of what's possible with Huginn. 
