@@ -8,6 +8,17 @@
 }
 
 .tags a:hover {
-  background-color: #5594f19e;
-  color: #333;
+  /*background-color: #5594f19e;*/
+  background-color: #f3f3f3;
+}
+
+#TableOfContents ul li {
+  line-height: 1.7em;
+  font-size: 13px;
+  font: 13px/2 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding-left: 10px;
+}
+
+#TableOfContents ul li:hover {
+  background-color: #f3f3f3;
 }

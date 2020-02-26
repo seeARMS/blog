@@ -19,10 +19,10 @@ hasCJKLanguage = false
     avatarLink = "https://colinarms.com"
 
 	enableRSS = false
-	enableToc = false
+	enableToc = true
 
-	enableDisqus = false
-	disqusShortname = "your_disqus_short_name"
+	enableDisqus = true
+	disqusShortname = "colinarms"
 
 
 	enableSummary = true
@@ -40,7 +40,7 @@ hasCJKLanguage = false
 	twitterCardImage = "https://avatars3.githubusercontent.com/u/3957773?s=460&v=4"
 
 	# Add custom assets with their paths relative to the static folder
-	customCSS = ["/custom.css"]
+	customCSS = ["custom.css"]
 	customJS  = []
 
 	# The variables below are optionally too and can be used to
