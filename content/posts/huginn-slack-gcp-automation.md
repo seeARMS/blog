@@ -3,7 +3,7 @@ categories = ["tech"]
 date = 2020-02-25T00:00:00Z
 description = "Huginn supercharges your productivity. Learn how to deploy it on GCP for free, and organize all notifications in a centralized Slack workspace."
 tags = ["tech", "automation"]
-title = "Personal automation with Huginn: Docker, GCP & Slack"
+title = "Personal automation with Huginn using Docker, GCP & Slack"
 [menu.main]
 
 +++
