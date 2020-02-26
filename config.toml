@@ -3,7 +3,7 @@ baseurl = "https://blog.colinarms.com"
 languageCode = "en"
 title = "Colin Armstrong"
 theme = "hugo-theme-cactus-plus"
-googleAnalytics = "your_google_analytics_id"
+googleAnalytics = "your_google_analytics_id_2"
 # Set the value to true if your site include CJK (Chinese, Japanese, and Korean languages) characters
 hasCJKLanguage = false
 
