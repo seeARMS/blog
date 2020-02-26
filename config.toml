@@ -9,7 +9,7 @@ hasCJKLanguage = false
 
 [params]
 	author = "Colin Armstrong"
-	description = "Site Description"
+	description = "Colin Armstrong's thoughts."
 	bio = "Google software engineer. Previously @ Coinbase and Blackberry. uWaterloo alum, enjoying good ☕️ and better 🍷."
 
 	twitter = "colinarms"
