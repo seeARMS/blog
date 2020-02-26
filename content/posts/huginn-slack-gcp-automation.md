@@ -1,15 +1,11 @@
 +++
-title = "Next-level automation with Huginn, Slack & GCP"
+categories = ["tech"]
+date = 2020-02-25T00:00:00Z
 description = "Huginn supercharges your productivity. Learn how to deploy it on GCP for free, and organize all notifications in a centralized Slack workspace."
-tags = [
-    "tech",
-    "automation",
-]
-date = "2020-02-25"
-categories = [
-    "tech"
-]
-menu = "main"
+tags = ["tech", "automation"]
+title = "Personal automation with Huginn: Docker, GCP & Slack"
+[menu.main]
+
 +++
 I'm a huge fan of productivity tools, especially when they allow me to automate certain things or organize things better. I was delighted to come across a recent  [thread on Hacker News](https://news.ycombinator.com/item?id=21772610 "Huginn") discussing a supercharged automation tool: [Huginn](https://github.com/huginn/huginn "Huginn"). This open-source software performs automated tasks by using 'agents' to watch for 'events', and triggering 'actions' based on these events.
 
