@@ -19,6 +19,10 @@
   padding-left: 10px;
 }
 
-#TableOfContents ul li:hover {
+#TableOfContents ul li a {
+  padding: 10px;
+}
+
+#TableOfContents ul li a:hover {
   background-color: #f3f3f3;
 }
