@@ -158,4 +158,4 @@ src="/uploads/slack_secret_flying.png" alt="Secret Flying" >}}
 
 ## Wrapping it up
 
-This example describes a single usecase for what's possible with Huginn, but we're just scratching the surface. If you're interested in the other usecases I described above, feel free to [download and import them](https://gist.github.com/seeARMS/103b3399f3f925fb6c366600f0bad3c6) into your own Huginn installation.
+This example describes a single usecase for what's possible with Huginn, but we're just scratching the surface. If you're interested in the other usecases I described above, you can [download and import them](https://gist.github.com/seeARMS/103b3399f3f925fb6c366600f0bad3c6) into your own installation.
