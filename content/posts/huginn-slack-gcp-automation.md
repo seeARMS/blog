@@ -9,7 +9,7 @@ title = "Personal automation with Huginn using Slack, Docker & GCP"
 +++
 Productivity tools are great - especially when they allow me to automate certain things in an organized way. I was delighted to come across a recent  [thread on Hacker News](https://news.ycombinator.com/item?id=21772610 "Huginn") discussing a supercharged automation tool: [Huginn](https://github.com/huginn/huginn "Huginn"). This open-source software performs automated tasks by using 'agents' to watch for 'events', and triggering 'actions' based on these events.
 
-For example, if there's a sudden spike in discussion on Twitter with the terms "San Francisco Earthquake", Huginn can send a text to my phone. Or, if an amazing, time-sensitive flight deal is posted on one of the many deal-finding websites out there, Huginn can send me an email with the price and a link to Google Flights.
+For example, if there's a sudden spike in discussion on Twitter with the terms "San Francisco Earthquake", Huginn can send a text to my phone. Or, if a time-sensitive flight deal is posted on one of the many deal-finding websites out there, Huginn can send me an email with the price and a link to Google Flights.
 
 ![](/uploads/automation_small.jpg)
 
@@ -19,9 +19,9 @@ Compared to other popular automation tools (IFTTT, Zapier), Huginn has the follo
 * Powerful data processing: write your own JS or use shell scripts
 * Liquid templating
 
-I wanted to go beyond strict automation and introduce some organization - I wanted all notifications to be cataloged & delivered in a centralized way. A personal Slack workspace seemed like the perfect solution for this - I can have a `#flights` channel for flight deals, or a `#trending` channel for the, er, pending San Francisco emergencies.
+I wanted to go beyond just automation and introduce some organization - I wanted all notifications to be cataloged & delivered in a centralized way. A personal Slack workspace seemed like the perfect solution for this - I can have a `#flights` channel for flight deals, or a `#trending` channel for the, er, pending San Francisco emergencies.
 
-Another requirement I had was that I wanted all of this to be free. Huginn has pretty lax runtime resource requirements (even able to run on a [Raspberry Pi](https://github.com/huginn/huginn/wiki/Running-Huginn-on-minimal-systems-with-low-RAM-&-CPU-e.g.-Raspberry-Pi), with some tweaking), so a free GCP micro tier instance was perfect for this.
+I also wanted all of this to be free. Huginn has pretty lax runtime resource requirements (even able to run on a [Raspberry Pi](https://github.com/huginn/huginn/wiki/Running-Huginn-on-minimal-systems-with-low-RAM-&-CPU-e.g.-Raspberry-Pi), with some tweaking), so a free GCP micro tier instance was perfect for this.
 
 ## Automation Goals
 
@@ -29,8 +29,9 @@ Let's formalize what I specifically wanted to accomplish with Huginn. Note that 
 
 * **Twitter notifications**: whenever keywords of interest are tweeted (such as my projects or blog), I want to get notified immediately. Whenever a spike occurs for other keywords ("San Francisco Emergency"), notify me.
 * **Hacker news notifications**: whenever an article hits the frontpage discussing something I'm interested in, notify me.
-* **Flight deals**: if a flight deal is posted online to one of the many websites I follow (Secret Flying, ThePointsGuy, FlyerTalk to name a few), and the flight originates from a nearby airport, notify me.
+* **Flight deals**: if a flight deal is posted online to one of the many websites I follow (Secret Flying, ThePointsGuy, FlyerTalk), and the flight originates from a nearby airport, notify me.
 * **Product deals**: if a product I'm interested in is posted on Slickdeals, notify me.
+* **Amazon price drops**: if a product I'm interested in drops below some predefined price threshold, notify me.
 
 I want all notifications to be sent to me via a personal Slack workspace, on different channels.
 
@@ -40,11 +41,11 @@ I want all notifications to be sent to me via a personal Slack workspace, on dif
 
 The easiest way to [install Huginn](https://github.com/huginn/huginn/blob/master/doc/docker/install.md "Huginn installation") is via Docker. Luckily, Google Compute Engine supports deploying Docker containers natively on a lean [container-optimized OS](https://cloud.google.com/container-optimized-os/docs "Container optimized GCP OS").
 
-There are a few key things we need to do in order to have a successful Huginn deploy on the F1-micro (free tier) instances.
+There are a few key things we need to do in order to have a successful Huginn deploy on the f1-micro (free tier) instances.
 
 **Enable and create a swap file**.
 
-f1-micro instances have 614MB of memory. This is not enough to run Huginn out of the box - doing so will cause Docker to encounter `Error Code 137` [(out of memory)](https://success.docker.com/article/what-causes-a-container-to-exit-with-code-137) errors. To solve this, we need to create a swap file in the VM. Note that a swapfile will decrease the performance of Huginn - if you're interested in performance for a price, consider deploying on a better VM.
+f1-micro instances have 614MB of memory. This is not enough to run Huginn out of the box - doing so will cause Docker to encounter `Error Code 137` [(out of memory)](https://success.docker.com/article/what-causes-a-container-to-exit-with-code-137) errors. To solve this, we need to create a swap file in the VM. Note that a swapfile will decrease the performance of Huginn - if you're interested in better performance for a price, consider deploying on a better VM.
 
 Disk-based swap is [disabled](https://stackoverflow.com/questions/58210222/how-to-enable-swap-swapfile-on-google-container-optimized-os-on-gce) by default in container-optimized OS. To enable and set the swap file every time the VM is booted, we can use a custom startup script (shown below).
 
