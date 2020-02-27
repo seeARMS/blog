@@ -23,7 +23,7 @@ I wanted to take this automation a step further and introduce some organization 
 
 Another requirement I had was that I wanted all of this to be free. Huginn is self-hosted, and has pretty lax runtime resource requirements (even able to run on a [Raspberry Pi](https://github.com/huginn/huginn/wiki/Running-Huginn-on-minimal-systems-with-low-RAM-&-CPU-e.g.-Raspberry-Pi), with some tweaking), so a free GCP micro tier instance was perfect for this.
 
-## My Automation Goals
+## Automation Goals
 
 Let's formalize what I specifically wanted to accomplish with Huginn. Note that this is a small subset of the things possible with Huginn - check out the project's [Github](https://github.com/huginn/huginn#here-are-some-of-the-things-that-you-can-do-with-huginn "Huginn Github") for more inspiration.
 
@@ -34,8 +34,8 @@ Let's formalize what I specifically wanted to accomplish with Huginn. Note that 
 
 I want all notifications to be sent to me via a personal Slack workspace, on different channels.
 
-# Installing Huginn
-## Prerequisites
+## Deploying Huginn
+### Prerequisites
 
 The easiest way to [install Huginn](https://github.com/huginn/huginn/blob/master/doc/docker/install.md "Huginn installation") is via Docker. Luckily, Google Compute Engine supports deploying Docker containers natively on a lean [container-optimized OS](https://cloud.google.com/container-optimized-os/docs "Container optimized GCP OS").
 
@@ -51,7 +51,7 @@ Disk-based swap is [disabled](https://stackoverflow.com/questions/58210222/how-t
 
 By default, Huginn creates a database inside the container. This is problematic, as the container now relies on _state_, and your database will [get deleted every Huginn upgrade](https://github.com/huginn/huginn/blob/master/docker/multi-process/README.md). We can use a volume mount to mount the database in the container to a directory in the host.
 
-## Deploying Huginn on GCP via Docker
+### Deployment on GCP using Docker
 
 Head over to GCP, create a new project, and create a new instance.
 
@@ -90,7 +90,7 @@ Multiple agents for a single usecase can be grouped into a `Scenario` - in the a
 
 Let's walk through this example. If you want to get started immediately, you can [download my agents](https://gist.github.com/seeARMS/103b3399f3f925fb6c366600f0bad3c6) and import them into Huginn directly.
 
-## Finding Flight Deals
+## Creating your First Agent
 
 ### 1) Monitoring the RSS feed
 
