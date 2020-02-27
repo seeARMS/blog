@@ -14,6 +14,7 @@ For example, if there's a sudden spike in discussion on Twitter with the terms "
 ![](/uploads/automation_small.jpg)
 
 Compared to other popular automation tools (IFTTT, Zapier), Huginn has the following benefits:
+
 * Self-hosted & completely private
 * Powerful data processing: write your own JS or use shell scripts
 * Liquid templating
