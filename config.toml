@@ -79,3 +79,6 @@ hasCJKLanguage = false
 [social]
 	twitter-square = "https://www.twitter.com/colinarms"
 	github-square = "https://www.github.com/seeARMS"
+
+[markup.goldmark.renderer]
+  unsafe= true

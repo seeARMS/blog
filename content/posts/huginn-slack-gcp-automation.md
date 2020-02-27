@@ -151,7 +151,11 @@ Put the following JSON in the options:
 
 Save your agent, and eventually you should begin receiving flight deals!
 
-![](/uploads/slack_secret_flying.png)
+{{< figure
+  width="400px"
+  src="/uploads/slack_secret_flying.png" title="Secret Flying" >}}
+
+
 
 ## Wrapping it up
 
