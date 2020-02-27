@@ -153,9 +153,7 @@ Save your agent, and eventually you should begin receiving flight deals!
 
 {{< figure
   width="400px"
-  src="/uploads/slack_secret_flying.png" title="Secret Flying" >}}
-
-
+  src="/uploads/slack_secret_flying.png" alt="Secret Flying" >}}
 
 ## Wrapping it up
 
