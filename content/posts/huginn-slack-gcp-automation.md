@@ -34,7 +34,8 @@ Let's formalize what I specifically wanted to accomplish with Huginn. Note that 
 
 I want all notifications to be sent to me via a personal Slack workspace, on different channels.
 
-## Deployment Prerequisites
+# Installing Huginn
+## Prerequisites
 
 The easiest way to [install Huginn](https://github.com/huginn/huginn/blob/master/doc/docker/install.md "Huginn installation") is via Docker. Luckily, Google Compute Engine supports deploying Docker containers natively on a lean [container-optimized OS](https://cloud.google.com/container-optimized-os/docs "Container optimized GCP OS").
 
