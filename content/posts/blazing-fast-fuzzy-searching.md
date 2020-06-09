@@ -4,12 +4,29 @@ date = ""
 description = ""
 draft = true
 tags = ["vim", "tech"]
-title = "Fuzzy-search and open in VIM at breakneck speed"
+title = "Lightning-fast fuzzy searching with fzf and ag"
 
 +++
-`Ctrl+P` and `ag` are two commands I use every single day
+`fzf` and `ag` are two commands I use every single day.
 
-`Ctrl+P` is 
+My code workflow commonly looks like this: 
+
+* Multiple tmux panes, all in a single directory of the project I'm currently working on
+* 
+
+## Setting up ag
+
+Using .gitignore (don't search node_modules)
+
+## Setting up fzf
+
+vim ** <tab>
+
+Control T
+
+:Files in vim
+
+## One command to fuzzy-search in files and open in vim
 
 `agv() { vim $(ag -l "$1") }`
 
