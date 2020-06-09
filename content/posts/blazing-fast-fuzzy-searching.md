@@ -4,7 +4,7 @@ date = ""
 description = ""
 draft = true
 tags = ["vim", "tech"]
-title = "Blazing fast fuzzy-searching "
+title = "Fuzzy-search and open in VIM at breakneck speed"
 
 +++
 `Ctrl+P` and `ag` are two commands I use every single day
