@@ -19,6 +19,7 @@ fields:
   label: title
 pages:
 - content/posts/blazing-fast-fuzzy-searching.md
+- content/posts/diagnosing-node.js-memory-leaks-with-google-cloud-profiler.md
 - content/posts/future-of-anti-abuse.md
 - content/posts/option-prices-robinhood.md
 - content/posts/using-docker-and-vue-node-on-google-cloud-run.md
