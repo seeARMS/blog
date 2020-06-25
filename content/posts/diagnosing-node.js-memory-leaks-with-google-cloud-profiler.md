@@ -9,7 +9,7 @@ title = "Diagnosing node.js memory leaks with Google Cloud Profiler"
 +++
 I have a node.js app bundled in a Docker container and deployed on Google Cloud Run. Recently, the container has been crashing with the following error:
 
-`FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory`
+    FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
 
 Oh no. Looking at the memory utilization graph confirmed my suspicious of a memory leak:
 
